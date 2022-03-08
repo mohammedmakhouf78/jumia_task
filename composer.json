@@ -1,0 +1,19 @@
+{
+  "name": "moham/solution",
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+      "Database\\": "Database/"
+    },
+    "files": [
+      "./helpers.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "mohammedmakhlouf78",
+      "email": "mohammedmakhlouf78@gmail.com"
+    }
+  ],
+  "require": {}
+}
