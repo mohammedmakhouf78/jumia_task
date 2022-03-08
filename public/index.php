@@ -18,10 +18,13 @@ $app->get("/home",function(){
     $newData = $customer->makeAllData($table->selectAll());
     
     $countries = $customer->getAllCountries($newData);
+
+    $pageCount = ceil(count($newData) / NUMBER_PER_PAGE);
    
     return [
         'data' => $newData,
-        'countries' => $countries
+        'countries' => $countries,
+        'pageCount' => $pageCount
     ];
 });
 
@@ -31,7 +34,6 @@ $app->post("/country",function(){
     $customer = new Customer();
     $newData = $customer->makeAllData($table->selectAll());
     
-    $countries = $customer->getAllCountries($newData);
 
     if($country != "all")
     {
@@ -40,13 +42,39 @@ $app->post("/country",function(){
    
     echo json_encode([
         'data' => $newData,
-        'countries' => $countries
     ]);
 });
 
-$app->post('/wtf',function(){
-    return "wtf";
+$app->post('/state',function(){
+    $state = $_POST['state'];
+    $table = new DBWrapper("customer");
+    $customer = new Customer();
+    $newData = $customer->makeAllData($table->selectAll());
+    
+
+    if($state != "all")
+    {
+        $newData = $customer->getDataByState($newData,$state);
+    }
+   
+    echo json_encode([
+        'data' => $newData,
+    ]);
 });
 
+
+$app->post('/page',function(){
+    $pageNumber = $_POST['pageNumber'];
+
+    $table = new DBWrapper("customer");
+    $customer = new Customer();
+    $offset = NUMBER_PER_PAGE * ($pageNumber - 1);
+    $data = $table->selectForPagination(NUMBER_PER_PAGE,$offset);
+    $newData = $customer->makeAllData($data);
+   
+    echo json_encode([
+        'data' => $newData,
+    ]);
+});
 
 $app->run();

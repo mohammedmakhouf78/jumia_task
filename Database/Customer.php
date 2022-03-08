@@ -93,4 +93,17 @@ class Customer
         }
         return $x;
     }
+
+    public function getDataByState($data,$state)
+    {
+        $x = [];
+        foreach($data as $item)
+        {
+            if($item['state'] == $state)
+            {
+                $x []= $item;
+            }
+        }
+        return $x;
+    }
 }

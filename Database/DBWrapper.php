@@ -18,4 +18,10 @@ class DBWrapper
         $query = $this->pdo->query("select * from " . $this->table_name);
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function selectForPagination($numberPerPage,$offset)
+    {
+        $query = $this->pdo->query("select * from ". $this->table_name . " limit $numberPerPage offset $offset");
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
