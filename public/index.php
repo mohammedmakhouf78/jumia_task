@@ -14,15 +14,17 @@ $app = new App();
 $app->get("/home",function(){
     $table = new DBWrapper("customer");
     $customer = new Customer();
-
-    $newData = $customer->makeAllData($table->selectAll());
+    $allData = $customer->makeAllData($table->selectAll());
+    $offset = NUMBER_PER_PAGE * (0);
+    $first_page_date = $table->selectForPagination(NUMBER_PER_PAGE,$offset);
+    $first_page_date = $customer->makeAllData($first_page_date);
     
-    $countries = $customer->getAllCountries($newData);
+    $countries = $customer->getAllCountries($allData);
 
-    $pageCount = ceil(count($newData) / NUMBER_PER_PAGE);
+    $pageCount = ceil(count($allData) / NUMBER_PER_PAGE);
    
     return [
-        'data' => $newData,
+        'data' => $first_page_date,
         'countries' => $countries,
         'pageCount' => $pageCount
     ];

@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         
-        <div class="row">
+        <div class="row m-5">
 
 
             <div class="col">
@@ -68,7 +68,7 @@
 
         <div>
             <?php for($i = 1; $i <= $pageCount; $i++): ?>
-                <button class="btn page_btn"><?= $i ?></button>
+                <button class="btn btn-success page_btn"><?= $i ?></button>
             <?php endfor; ?>
         </div>
     </div>
